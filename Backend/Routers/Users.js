@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 
 //Petición para registrarse
-routerUsers.post("/users", async (req,res)=>{
+routerUsers.post("/", async (req,res)=>{
     let name = req.body.name
     let email = req.body.email
     let password = req.body.password 
@@ -29,40 +29,42 @@ routerUsers.post("/users", async (req,res)=>{
         return res.status(400).json({error: errors})
     }
 
-    database.connect();
+    else{database.connect();
 
-    let insertedUser = null;
-    try {
-
-        userWithSameEmail = await database.query('SELECT email FROM users WHERE email = ?',
-            [email])
-
-        if ( userWithSameEmail.length > 0){
+        let insertedUser = null;
+        try {
+    
+            userWithSameEmail = await database.query('SELECT email FROM users WHERE email = ?',
+                [email])
+    
+            if ( userWithSameEmail.length > 0){
+                database.disConnect();
+                return res.status(400).json({error: "Already a user with that email"})
+            }
+    
+            if ( password.length < 5){
+                database.disConnect();
+                return res.status(400).json({error: "Password is not 5 characters long"})
+            }
+    
+            let role = "user"
+            insertedUser = await database.query('INSERT INTO users (name,email,password,role) VALUES (?,?,?,?)',
+                [name, email, password,role])
+    
+        } catch (e){
             database.disConnect();
-            return res.status(400).json({error: "Already a user with that email"})
+            return res.status(400).json({error: e})
         }
-
-        if ( password.length < 5){
-            database.disConnect();
-            return res.status(400).json({error: "Password is not 5 characters long"})
-        }
-
-        let role = "user"
-        insertedUser = await database.query('INSERT INTO users (name,email,password,role) VALUES (?,?,?,?)',
-            [name, email, password,role])
-
-    } catch (e){
+    
         database.disConnect();
-        return res.status(400).json({error: e})
-    }
+        res.json({inserted: insertedUser})}
 
-    database.disConnect();
-    res.json({inserted: insertedUser})
+    
 })
 
 
 //Petición para iniciar sesión
-routerUsers.post("/users/login", async (req,res)=>{
+routerUsers.post("/login", async (req,res)=>{
     let email = req.body.email
     let password = req.body.password 
     let errors = []
@@ -112,7 +114,7 @@ routerUsers.post("/users/login", async (req,res)=>{
 })
 
 //Petición para desconectar
-routerUsers.post("/users/disconect", async (req,res)=>{
+routerUsers.post("/disconect", async (req,res)=>{
     const index = activeApiKeys.indexOf(req.body.apiKey);
     if (index > -1) { 
         activeApiKeys.splice(index, 1); 
