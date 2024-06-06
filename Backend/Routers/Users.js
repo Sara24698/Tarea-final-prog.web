@@ -18,6 +18,11 @@ routerUsers.post("/", async (req,res)=>{
     if ( email == undefined ){
         errors.push("No email in body")
     }
+    let code_email = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
+    if (code_email.test(email) == false ){
+        errors.push("Email format no valid")
+    }
+
     if ( password == undefined ){
         errors.push("No password in body")
     }
@@ -41,15 +46,9 @@ routerUsers.post("/", async (req,res)=>{
                 database.disConnect();
                 return res.status(400).json({error: "Already a user with that email"})
             }
-    
-            if ( password.length < 5){
-                database.disConnect();
-                return res.status(400).json({error: "Password is not 5 characters long"})
-            }
-    
-            let role = "user"
-            insertedUser = await database.query('INSERT INTO users (name,email,password,role) VALUES (?,?,?,?)',
-                [name, email, password,role])
+       
+            insertedUser = await database.query('INSERT INTO users (name,email,password) VALUES (?,?,?)',
+                [name, email, password])
     
         } catch (e){
             database.disConnect();
@@ -57,7 +56,7 @@ routerUsers.post("/", async (req,res)=>{
         }
     
         database.disConnect();
-        res.json({inserted: insertedUser})}
+        res.status(200).json({inserted: "User registered"})}
 
     
 })
@@ -100,13 +99,12 @@ routerUsers.post("/login", async (req,res)=>{
 		{ 
 			email: selectedUsers[0].email,
 			id: selectedUsers[0].id,
-            role: selectedUsers[0].role //igualmente lo compruebo en el backend
 		},
 		"secret");
 	activeApiKeys.push(apiKey)
 
 
-    res.json({
+    res.status(200).json({
         apiKey: apiKey,
         id: selectedUsers[0].id,
         email: selectedUsers[0].email
@@ -115,10 +113,10 @@ routerUsers.post("/login", async (req,res)=>{
 
 //Petición para desconectar
 routerUsers.post("/disconect", async (req,res)=>{
-    const index = activeApiKeys.indexOf(req.body.apiKey);
+    const index = activeApiKeys.indexOf(req.apiKey);
     if (index > -1) { 
         activeApiKeys.splice(index, 1); 
-        res.json({removed: true})
+        res.status(200).json({removed: "User disconnected"})
     } else {
         return res.status(400).json({error: "user not found"})
     }

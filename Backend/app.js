@@ -16,7 +16,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.use(["/users/disconect", "/presents", "/friends"] ,(req,res,next)=>{
+app.use(["/users/disconect","/presents", "/friends"] ,(req,res,next)=>{
 	console.log("middleware execution")
 
 	let apiKey = req.query.apiKey
@@ -30,11 +30,16 @@ app.use(["/users/disconect", "/presents", "/friends"] ,(req,res,next)=>{
 		return 	
 	}
 
-	// desencrypted in req
 	req.infoInApiKey = infoInApiKey;
 	req.apiKey = apiKey;
-  next()
+	next()
+	
+	
+
+	
 })
+
+
 
 app.use("/users", routerUsers)
 app.use("/presents", routerPresents)
