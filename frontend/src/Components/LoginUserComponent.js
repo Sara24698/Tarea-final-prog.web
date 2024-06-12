@@ -2,17 +2,11 @@ import { useState } from "react";
 import { backendURL } from "../Globals";
 
 
-let CreateUserComponent = () => {
-    let [name, setName] = useState("")
+let LoginUserComponent = () => {
     let [email, setEmail] = useState("")
     let [password, setPassword] = useState("")
     let [message, setMessage] = useState("")
 
-
-    let changeName = (e) => {
-        setName(e.currentTarget.value)
-        console.log(name)
-    }
 
     let changeEmail = (e) => {
         setEmail(e.currentTarget.value)
@@ -22,12 +16,11 @@ let CreateUserComponent = () => {
         setPassword(e.currentTarget.value)
     }
 
-    let clickCreate= async() => {
-        let response = await fetch(backendURL+"/users",{
+    let clickLogin= async() => {
+        let response = await fetch(backendURL+"/users/login",{
             method:"POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
-                name: name,
                 email: email,
                 password: password
             })
@@ -35,21 +28,24 @@ let CreateUserComponent = () => {
 
         if(response.ok){
             let jsonData = await response.json();
-            setMessage("New user created")
+            if(jsonData.apiKey!=null){
+                localStorage.setItem("apiKey", jsonData.apiKey)
+                localStorage.setItem("id", jsonData.id)
+                localStorage.setItem("apiKey", jsonData.email)
+            }
+            
+
+            setMessage("User login")
         } else{
-            setMessage("Error")
+            setMessage("Not user found")
         }
     }
 
     return(
         <div>
-            <h2>Register user</h2>
-            <h3>{message}</h3>
+            <h2>Login user</h2>
+            {message != "" && <h3 className="errorMessage">{message}</h3>}
             <div className="center-box">
-                <div className="form-group">
-                    <input type="text" placeholder="Your name" onChange={changeName}/>
-                </div>
-
                 <div className="form-group">
                     <input type="text" placeholder="Your email" onChange={changeEmail}/>
                 </div>
@@ -57,11 +53,11 @@ let CreateUserComponent = () => {
                 <div>
                     <input type="password" placeholder="Your password" onChange={changePassword}/>
                 </div>
-                <button onClick={clickCreate}>Create Account</button>
+                <button onClick={clickLogin}>Login</button>
             </div>
         </div>
     )
 }
 
 
-export default CreateUserComponent;
+export default LoginUserComponent;

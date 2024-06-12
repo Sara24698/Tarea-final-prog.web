@@ -1,5 +1,6 @@
 import {Routes, Route, Link} from 'react-router-dom'
-import CreateUserComponent from './Components/CreateUserComponent';
+import CreateUserComponent from './Components/CreateUserComponent.js';
+import LoginUserComponent from './Components/LoginUserComponent.js';
 import { useRef } from 'react';
 
 
@@ -8,9 +9,9 @@ let App = () => {
         <div className="App">
             <nav>
                 <ul className='navbar'>
-                    <li>Index</li>
-                    <li>Register</li>
-                    <li>Login</li>
+                    <li><Link to="/">Index</Link></li>
+                    <li><Link to="/register">Register</Link></li>
+                    <li><Link to="/login">Login</Link></li>
                 </ul>
 
             </nav>
@@ -20,7 +21,7 @@ let App = () => {
                 }></Route>
 
                 <Route path='/login' element={
-                    <p>Login</p>
+                    <LoginUserComponent/>
                 }></Route>
 
                 <Route path='/' element={

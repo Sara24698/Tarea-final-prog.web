@@ -12,6 +12,7 @@ routerUsers.post("/", async (req,res)=>{
     let email = req.body.email
     let password = req.body.password 
     let errors = []
+    
     if ( name == undefined ){
         errors.push("No name in body")
     }
