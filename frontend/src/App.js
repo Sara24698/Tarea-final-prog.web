@@ -2,6 +2,7 @@ import {Routes, Route, Link} from 'react-router-dom'
 import CreateUserComponent from './Components/CreateUserComponent.js';
 import LoginUserComponent from './Components/LoginUserComponent.js';
 import PresentsComponent from './Components/PresentsComponent.js';
+import CreatePresentsComponent from './Components/CreatePresentComponent.js';
 
 
 let App = () => {
@@ -31,6 +32,10 @@ let App = () => {
 
                 <Route path='/presents' element={
                     <PresentsComponent/>
+                }></Route>
+
+                <Route path='/addpresent' element={ 
+                    <CreatePresentsComponent/>
                 }></Route>
             </Routes>
         </div>
