@@ -3,6 +3,7 @@ import CreateUserComponent from './Components/CreateUserComponent.js';
 import LoginUserComponent from './Components/LoginUserComponent.js';
 import PresentsComponent from './Components/PresentsComponent.js';
 import CreatePresentsComponent from './Components/CreatePresentComponent.js';
+import CreateFriendComponent from './Components/CreateFriendComponent.js';
 
 
 let App = () => {
@@ -14,6 +15,8 @@ let App = () => {
                     <li><Link to="/register">Register</Link></li>
                     <li><Link to="/login">Login</Link></li>
                     <li><Link to="/presents">My Presents</Link></li>
+                    <li><Link to="/addpresent">Add present</Link></li>
+                    <li><Link to="/addfriend">Add friend</Link></li>
                 </ul>
 
             </nav>
@@ -37,6 +40,11 @@ let App = () => {
                 <Route path='/addpresent' element={ 
                     <CreatePresentsComponent/>
                 }></Route>
+
+                <Route path='/addfriend' element={ 
+                    <CreateFriendComponent/>
+                }></Route>
+
             </Routes>
         </div>
     );
