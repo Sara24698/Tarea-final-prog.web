@@ -31,7 +31,7 @@ let LoginUserComponent = () => {
             if(jsonData.apiKey!=null){
                 localStorage.setItem("apiKey", jsonData.apiKey)
                 localStorage.setItem("id", jsonData.id)
-                localStorage.setItem("apiKey", jsonData.email)
+                localStorage.setItem("email", jsonData.email)
             }
             
 
@@ -44,7 +44,7 @@ let LoginUserComponent = () => {
     return(
         <div>
             <h2>Login user</h2>
-            {message != "" && <h3 className="errorMessage">{message}</h3>}
+            {message !== "" && <h3 className="errorMessage">{message}</h3>}
             <div className="center-box">
                 <div className="form-group">
                     <input type="text" placeholder="Your email" onChange={changeEmail}/>

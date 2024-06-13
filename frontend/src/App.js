@@ -1,7 +1,7 @@
 import {Routes, Route, Link} from 'react-router-dom'
 import CreateUserComponent from './Components/CreateUserComponent.js';
 import LoginUserComponent from './Components/LoginUserComponent.js';
-import { useRef } from 'react';
+import PresentsComponent from './Components/PresentsComponent.js';
 
 
 let App = () => {
@@ -12,6 +12,7 @@ let App = () => {
                     <li><Link to="/">Index</Link></li>
                     <li><Link to="/register">Register</Link></li>
                     <li><Link to="/login">Login</Link></li>
+                    <li><Link to="/presents">My Presents</Link></li>
                 </ul>
 
             </nav>
@@ -26,6 +27,10 @@ let App = () => {
 
                 <Route path='/' element={
                     <p>Inicio</p>
+                }></Route>
+
+                <Route path='/presents' element={
+                    <PresentsComponent/>
                 }></Route>
             </Routes>
         </div>
