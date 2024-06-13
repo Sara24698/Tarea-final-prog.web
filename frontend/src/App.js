@@ -4,6 +4,7 @@ import LoginUserComponent from './Components/LoginUserComponent.js';
 import PresentsComponent from './Components/PresentsComponent.js';
 import CreatePresentsComponent from './Components/CreatePresentComponent.js';
 import CreateFriendComponent from './Components/CreateFriendComponent.js';
+import FriendsComponent from './Components/FriendsComponent.js';
 
 
 let App = () => {
@@ -43,6 +44,10 @@ let App = () => {
 
                 <Route path='/addfriend' element={ 
                     <CreateFriendComponent/>
+                }></Route>
+
+                <Route path='/friends' element={ 
+                    <FriendsComponent/>
                 }></Route>
 
             </Routes>
