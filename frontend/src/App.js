@@ -8,6 +8,7 @@ import FriendsComponent from './Components/FriendsComponent.js';
 import OnePresentComponent from './Components/OnePresentComponent.js';
 import { useEffect, useState } from 'react';
 import { backendURL } from './Globals.js';
+import ModifyPresentComponent from './Components/ModifyPresentComponent.js';
 
 
 
@@ -50,8 +51,6 @@ let App = () => {
                     { !login && <li><Link to="/register">Register</Link></li>}
                     { !login &&<li><Link to="/login">Login</Link></li>}
                     {login && <li><Link to="/presents">My Presents</Link></li>}
-                    {login &&<li><Link to="/addpresent">Add present</Link></li>}
-                    {login &&<li><Link to="/addfriend">Add friend</Link></li>}
                     {login &&<li><Link to="/friends">Friends</Link></li>}
                     {login &&<li><Link to="/" onClick={disconnect}>Disconnect</Link></li>}
                 </ul>
@@ -88,6 +87,16 @@ let App = () => {
                 <Route path='/present/:presentId' element={ 
                     <OnePresentComponent/>
                 }></Route>
+
+                <Route path='/modifypresent/:id' element={ 
+                    <ModifyPresentComponent/>
+                }></Route>
+
+                <Route path='/friendpresents' element={ 
+                    <OnePresentComponent/>
+                }></Route>
+
+
 
 
 

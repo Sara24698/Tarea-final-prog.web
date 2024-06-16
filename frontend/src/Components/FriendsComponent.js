@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import { backendURL } from "../Globals"
+import {Link, useNavigate} from 'react-router-dom'
 
 
 let FriendsComponent = () =>{
     let [friends, setFriends] = useState([])
     let [message, setMessage] = useState("")
+    let navigate = useNavigate()
 
     useEffect(() =>{
         getFriends();
@@ -41,6 +43,10 @@ let FriendsComponent = () =>{
 
     }
 
+    let addFriend= () =>{
+        navigate("/addfriend/")
+    }
+
 
     return(
         <div>
@@ -51,11 +57,17 @@ let FriendsComponent = () =>{
                 {friends.map(friends =>
                     (
                         <div className ="items">
-                            <p>{friends.emailFriend}</p>
+                            <Link to="/friendpresents">
+                                <p>{friends.emailFriend}</p>
+                            </Link>
+                            
                             <button onClick={()=> {deleteFriend(friends.emailFriend)}}>Delete</button>
                         </div>
+                        
                     )
                 )}
+
+                <button onClick={()=> {addFriend()}}>Add friend</button>
 
             </div>
         </div>

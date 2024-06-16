@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import { backendURL } from "../Globals"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 
 let PresentsComponent = () =>{
 
     let [presents, setPresents] = useState([])
     let [message, setMessage] = useState("")
+    let navigate=useNavigate()
 
     useEffect(() =>{
         getPresents();
@@ -42,6 +43,14 @@ let PresentsComponent = () =>{
 
     }
 
+    let ModifyPresent= (id) =>{
+        navigate("/modifypresent/"+id)
+    }
+
+    let addPresent= () =>{
+        navigate("/addpresent/")
+    }
+
     return(
         <div>
             <h2>Presents</h2>
@@ -60,12 +69,15 @@ let PresentsComponent = () =>{
                             <p>{presents.price}</p>
                             <p>{presents.ChosenBy}</p>
                             <button onClick={()=> {deletePresent(presents.id)}}>Delete</button>
+                            <button onClick={()=>{ModifyPresent(presents.id)}}>Modify present</button>
                     </div>
                         
                         
                         
                     )
                 )}
+
+            <button onClick={()=> {addPresent()}}>Add present</button>
 
             </div>
         </div>
