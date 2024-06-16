@@ -26,6 +26,25 @@ let FriendPresentsComponent = () =>{
         }
     }
 
+    let buyPresent = async(id) => {
+        let response = await fetch(backendURL+"/presents/"+id+"?apiKey="+localStorage.getItem("apiKey"),{
+            method: "PUT"
+        })
+
+        if(response.ok){
+            let jsonData = await response.json()
+            setMessage(jsonData.inserted)
+            navigate("/friendpresents/"+email)
+
+
+        } else{
+            let jsonData = await response.json()
+            setMessage(jsonData.error)
+        }
+    }
+
+
+
 
 
     return(
@@ -36,14 +55,14 @@ let FriendPresentsComponent = () =>{
             <div class="item-class">
                 {presents.map(presents =>
                     (   
-                        
-                    <div className ="presents">
-                        <h3>{presents.name}</h3>
-                            <p>{presents.description}</p>
-                            <p>{presents.URL}</p>
-                            <p>{presents.price}</p>
-                            <p>{presents.ChosenBy}</p>
-                    </div>
+                        <div className ="presents">
+                            <h3>{presents.name}</h3>
+                                <p>{presents.description}</p>
+                                <p>{presents.URL}</p>
+                                <p>{presents.price}</p>
+                                <p>{presents.ChosenBy}</p>
+                                <button onClick={()=> {buyPresent(presents.id)}}>Buy</button>
+                        </div>
                         
                         
                         

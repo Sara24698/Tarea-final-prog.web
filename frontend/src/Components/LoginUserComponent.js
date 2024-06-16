@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { backendURL } from "../Globals";
+import { useNavigate } from "react-router-dom";
 
 
 let LoginUserComponent = () => {
     let [email, setEmail] = useState("")
     let [password, setPassword] = useState("")
     let [message, setMessage] = useState("")
+    let navigate = useNavigate();
 
 
     let changeEmail = (e) => {
@@ -36,6 +38,7 @@ let LoginUserComponent = () => {
             
 
             setMessage("Login success")
+            navigate("/")
         } else{
             let jsonData = await response.json();
             setMessage(jsonData.error)
