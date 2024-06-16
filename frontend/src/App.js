@@ -9,6 +9,7 @@ import OnePresentComponent from './Components/OnePresentComponent.js';
 import { useEffect, useState } from 'react';
 import { backendURL } from './Globals.js';
 import ModifyPresentComponent from './Components/ModifyPresentComponent.js';
+import FriendPresentsComponent from './Components/FriendPresentsComponent.js';
 
 
 
@@ -92,8 +93,8 @@ let App = () => {
                     <ModifyPresentComponent/>
                 }></Route>
 
-                <Route path='/friendpresents' element={ 
-                    <OnePresentComponent/>
+                <Route path='/friendpresents/:email' element={ 
+                    <FriendPresentsComponent/>
                 }></Route>
 
 

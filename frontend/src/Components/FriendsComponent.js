@@ -47,6 +47,10 @@ let FriendsComponent = () =>{
         navigate("/addfriend/")
     }
 
+    let seePresents= (emailFriend) =>{
+        navigate("/friendpresents/"+emailFriend)
+    }
+
 
     return(
         <div>
@@ -57,11 +61,11 @@ let FriendsComponent = () =>{
                 {friends.map(friends =>
                     (
                         <div className ="items">
-                            <Link to="/friendpresents">
-                                <p>{friends.emailFriend}</p>
-                            </Link>
+                            <p>{friends.emailFriend}</p>
+  
                             
                             <button onClick={()=> {deleteFriend(friends.emailFriend)}}>Delete</button>
+                            <button onClick={()=> {seePresents(friends.emailFriend)}}>See wishlist</button>
                         </div>
                         
                     )
