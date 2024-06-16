@@ -24,6 +24,25 @@ let PresentsComponent = () =>{
     }
 
 
+    let deletePresent = async(id) => {
+        setMessage("Todo bien")
+        let response = await fetch(backendURL+"/presents/"+id+"?apiKey="+localStorage.getItem("apiKey"),{
+            method:"DELETE"
+        })
+        if(response.ok){
+            let updatedPresents=presents.filter(present => present.id !== id)
+            setPresents(updatedPresents)
+
+            let jsonData = await response.json();
+            setMessage(jsonData.modifiyed)
+
+        } else{
+            let jsonData = await response.json();
+            setMessage(jsonData.error)
+        }
+
+    }
+
     return(
         <div>
             <h2>Presents</h2>
@@ -41,6 +60,7 @@ let PresentsComponent = () =>{
                             <p>{presents.URL}</p>
                             <p>{presents.price}</p>
                             <p>{presents.ChosenBy}</p>
+                            <button onClick={()=> {deletePresent(presents.id)}}>Delete</button>
                     </div>
                         
                         

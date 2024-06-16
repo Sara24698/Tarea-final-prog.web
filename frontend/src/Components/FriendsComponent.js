@@ -16,9 +16,29 @@ let FriendsComponent = () =>{
         if(response.ok){
             let jsonData = await response.json()
             setFriends(jsonData)
+            
         } else{
-            setMessage("Error")
+            let jsonData = await response.json()
+            setMessage(jsonData.error)
         }
+    }
+
+    let deleteFriend = async(emailFriend) => {
+        let response = await fetch(backendURL+"/friends/"+emailFriend+"?apiKey="+localStorage.getItem("apiKey"),{
+            method:"DELETE"
+        })
+        if(response.ok){
+            let updatedFriends=friends.filter(friend => friend.emailFriend !== emailFriend)
+            setFriends(updatedFriends)
+
+            let jsonData = await response.json();
+            setMessage(jsonData.modifiyed)
+
+        } else{
+            let jsonData = await response.json();
+            setMessage(jsonData.error)
+        }
+
     }
 
 
@@ -32,6 +52,7 @@ let FriendsComponent = () =>{
                     (
                         <div className ="items">
                             <p>{friends.emailFriend}</p>
+                            <button onClick={()=> {deleteFriend(friends.emailFriend)}}>Delete</button>
                         </div>
                     )
                 )}

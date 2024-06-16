@@ -35,9 +35,10 @@ let LoginUserComponent = () => {
             }
             
 
-            setMessage("User login")
+            setMessage("Login success")
         } else{
-            setMessage("Not user found")
+            let jsonData = await response.json();
+            setMessage(jsonData.error)
         }
     }
 

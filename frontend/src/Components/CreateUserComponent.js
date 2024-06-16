@@ -35,9 +35,10 @@ let CreateUserComponent = () => {
 
         if(response.ok){
             let jsonData = await response.json();
-            setMessage("New user created")
+            setMessage(jsonData.inserted)
         } else{
-            setMessage("Error")
+            let jsonData = await response.json();
+            setMessage(jsonData.error)
         }
     }
 
