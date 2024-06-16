@@ -25,7 +25,6 @@ let PresentsComponent = () =>{
 
 
     let deletePresent = async(id) => {
-        setMessage("Todo bien")
         let response = await fetch(backendURL+"/presents/"+id+"?apiKey="+localStorage.getItem("apiKey"),{
             method:"DELETE"
         })
