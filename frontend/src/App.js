@@ -5,6 +5,8 @@ import PresentsComponent from './Components/PresentsComponent.js';
 import CreatePresentsComponent from './Components/CreatePresentComponent.js';
 import CreateFriendComponent from './Components/CreateFriendComponent.js';
 import FriendsComponent from './Components/FriendsComponent.js';
+import OnePresentComponent from './Components/OnePresentComponent.js';
+
 
 
 let App = () => {
@@ -18,6 +20,8 @@ let App = () => {
                     <li><Link to="/presents">My Presents</Link></li>
                     <li><Link to="/addpresent">Add present</Link></li>
                     <li><Link to="/addfriend">Add friend</Link></li>
+                    <li><Link to="/friends">Friends</Link></li>
+
                 </ul>
 
             </nav>
@@ -49,6 +53,12 @@ let App = () => {
                 <Route path='/friends' element={ 
                     <FriendsComponent/>
                 }></Route>
+
+                <Route path='/present/:presentId' element={ 
+                    <OnePresentComponent/>
+                }></Route>
+
+
 
             </Routes>
         </div>
