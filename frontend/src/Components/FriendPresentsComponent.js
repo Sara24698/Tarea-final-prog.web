@@ -3,12 +3,14 @@ import { backendURL } from "../Globals"
 import { Link, useNavigate, useParams } from "react-router-dom"
 
 
-let FriendPresentsComponent = () =>{
+let FriendPresentsComponent = (props) =>{
+    let {createNotification}=props;
 
     let [presents, setPresents] = useState([])
     let [message, setMessage] = useState("")
     let {email} = useParams();
     let navigate=useNavigate()
+
 
     useEffect(() =>{
         getPresents();
@@ -16,6 +18,11 @@ let FriendPresentsComponent = () =>{
 
     let getPresents = async() => {
         let response = await fetch(backendURL+"/presents?email="+email+"&apiKey="+localStorage.getItem("apiKey"))
+
+        if(response.status==401){
+            navigate("/login")
+            return
+        }
 
         if(response.ok){
             let jsonData = await response.json()
@@ -31,10 +38,15 @@ let FriendPresentsComponent = () =>{
             method: "PUT"
         })
 
+        if(response.status==401){
+            navigate("/login")
+            return
+        }
+
         if(response.ok){
             let jsonData = await response.json()
-            setMessage(jsonData.inserted)
-            navigate("/friendpresents/"+email)
+            createNotification("Present reserved")
+            navigate("/friends/"+email)
 
 
         } else{

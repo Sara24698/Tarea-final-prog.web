@@ -15,13 +15,20 @@ import FriendPresentsComponent from './Components/FriendPresentsComponent.js';
 
 
 let App = () => {
-    let [notification, setNotification] = useState("")
+    let [notification, setNotification] = useState("");
     let [login, setLogin] = useState(false)
 
 
     useEffect(() =>{
         checkLogin();
     }, [])
+
+    let createNotification = (msg) =>{
+        setNotification(msg);
+        setTimeout(()=>{
+            setNotification("");
+        }, 3000)
+    }
 
     let checkLogin = async() => {
         let response = await fetch(backendURL+"/presents?apiKey="+localStorage.getItem("apiKey"))
@@ -56,13 +63,22 @@ let App = () => {
                     {login &&<li><Link to="/" onClick={disconnect}>Disconnect</Link></li>}
                 </ul>
             </nav>
+
+        {notification != "" && (
+            <div className='notification'>
+                {notification}
+                <span className='close-btn' onClick={()=>{setNotification("")}}>X</span>
+            </div>
+        ) }
+
+
             <Routes>
                 <Route path='/register' element={
-                    <CreateUserComponent/>
+                    <CreateUserComponent createNotification={createNotification}/>
                 }></Route>
 
                 <Route path='/login' element={
-                    <LoginUserComponent/>
+                    <LoginUserComponent  setLogin = {setLogin} />
                 }></Route>
 
                 <Route path='/' element={
@@ -70,19 +86,19 @@ let App = () => {
                 }></Route>
 
                 <Route path='/presents' element={
-                    <PresentsComponent/>
+                    <PresentsComponent createNotification={createNotification}/>
                 }></Route>
 
                 <Route path='/addpresent' element={ 
-                    <CreatePresentsComponent/>
+                    <CreatePresentsComponent createNotification={createNotification}/>
                 }></Route>
 
                 <Route path='/addfriend' element={ 
-                    <CreateFriendComponent/>
+                    <CreateFriendComponent createNotification={createNotification}/>
                 }></Route>
 
                 <Route path='/friends' element={ 
-                    <FriendsComponent/>
+                    <FriendsComponent createNotification={createNotification}/>
                 }></Route>
 
                 <Route path='/present/:presentId' element={ 
@@ -90,11 +106,11 @@ let App = () => {
                 }></Route>
 
                 <Route path='/modifypresent/:id' element={ 
-                    <ModifyPresentComponent/>
+                    <ModifyPresentComponent createNotification={createNotification}/>
                 }></Route>
 
                 <Route path='/friendpresents/:email' element={ 
-                    <FriendPresentsComponent/>
+                    <FriendPresentsComponent createNotification={createNotification}/>
                 }></Route>
 
 

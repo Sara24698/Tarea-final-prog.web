@@ -1,12 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
+import { useNavigate } from "react-router-dom";
 
 
-let CreateUserComponent = () => {
-    let [name, setName] = useState("")
-    let [email, setEmail] = useState("")
-    let [password, setPassword] = useState("")
+let CreateUserComponent = (props) => {
+    let {createNotification}=props;
+
+    let [name, setName] = useState(null)
+    let [email, setEmail] = useState(null)
+    let [password, setPassword] = useState(null)
     let [message, setMessage] = useState("")
+    let [error, setError] = useState({})
+    let navigate = useNavigate();
+
+    let code_email = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
+
+    useEffect(() =>{
+        checkErrors();
+    }, [name, email, password])
+
+
+    let checkErrors = () =>{
+        let updatedErrors = {}
+
+        if(name === "" ){
+            updatedErrors.name = "No name introduced"
+        }
+
+        if(email === "" || code_email.test(email) === false){
+            updatedErrors.email = "Incorrect email format"
+        }
+
+        if(password === "" || password?.length <5){
+            updatedErrors.password = "Password must be 5 characters long"
+        }
+
+        setError(updatedErrors)
+
+    }
 
 
     let changeName = (e) => {
@@ -35,7 +66,8 @@ let CreateUserComponent = () => {
 
         if(response.ok){
             let jsonData = await response.json();
-            setMessage(jsonData.inserted)
+            createNotification("User created successfully")
+            navigate("/login")
         } else{
             let jsonData = await response.json();
             setMessage(jsonData.error)
@@ -50,14 +82,16 @@ let CreateUserComponent = () => {
                 <div className="form-group">
                     <input type="text" placeholder="Your name" onChange={changeName}/>
                 </div>
+                {error.name && <p className="errorform">{error.name}</p>}
 
                 <div className="form-group">
                     <input type="text" placeholder="Your email" onChange={changeEmail}/>
                 </div>
-
+                {error.email && <p className="errorform">{error.email}</p>}
                 <div>
                     <input type="password" placeholder="Your password" onChange={changePassword}/>
                 </div>
+                {error.password && <p className="errorform">{error.password}</p>}
                 <button onClick={clickCreate}>Create Account</button>
             </div>
         </div>

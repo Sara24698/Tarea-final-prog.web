@@ -1,14 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
+import { useNavigate } from "react-router-dom";
 
 
 
-let CreatePresentsComponent = () => {
-    let [name, setName] = useState("")
-    let [description, setDescription] = useState("")
-    let [url, setURL] = useState("")
-    let [price, setPrice] = useState("")
-    let [message, setMessage] = useState("")
+let CreatePresentsComponent = (props) => {
+    let {createNotification}=props;
+
+    let [name, setName] = useState(null)
+    let [description, setDescription] = useState(null)
+    let [url, setURL] = useState(null)
+    let [price, setPrice] = useState(null)
+    let [message, setMessage] = useState(null)
+    let [error, setError] = useState({})
+    let navigate = useNavigate();
+
+    useEffect(() =>{
+        checkLogin();
+    }, [])
+
+    useEffect(() =>{
+        checkErrors();
+    }, [name, description, url, price])
+
+    let checkLogin = async() => {
+        let response = await fetch(backendURL+"/presents?apiKey="+localStorage.getItem("apiKey"))
+
+        if(response.status==401){
+            navigate("/login")
+            return
+        }
+    } 
+
+
+    let checkErrors = () =>{
+        let updatedErrors = {}
+
+        if(name === "" ){
+            updatedErrors.name = "No name introduced"
+        }
+
+        if(description=== "" ){
+            updatedErrors.description = "No description introduced"
+        }
+
+        if(url === "" ){
+            updatedErrors.url = "No URL introduced"
+        }
+
+        if(price=== "" || price<=0){
+            updatedErrors.price = "No valid price introduced"
+        }
+
+        setError(updatedErrors)
+
+    }
 
 
     let changeName = (e) => {
@@ -42,7 +88,8 @@ let CreatePresentsComponent = () => {
 
         if(response.ok){
             let jsonData = await response.json();
-            setMessage("New present added")
+            createNotification("Present added successfully")
+            navigate("/presents")
         } else{
             setMessage("Error")
         }
@@ -56,18 +103,20 @@ let CreatePresentsComponent = () => {
                 <div className="form-group">
                     <input type="text" placeholder="Name" onChange={changeName}/>
                 </div>
+                {error.name && <p className="errorform">{error.name}</p>}
 
                 <div className="form-group">
                     <input type="text" placeholder="Description" onChange={changeDescription}/>
                 </div>
-
+                {error.description && <p className="errorform">{error.description}</p>}
                 <div>
                     <input type="web" placeholder="URL" onChange={changeURL}/>
                 </div>
-
+                {error.url && <p className="errorform">{error.url}</p>}
                 <div>
                     <input type="number" placeholder="Price" onChange={changePrice}/>
                 </div>
+                {error.price && <p className="errorform">{error.price}</p>}
                 <button onClick={clickCreate}>Add present</button>
             </div>
         </div>

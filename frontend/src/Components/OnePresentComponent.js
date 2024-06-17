@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import { backendURL } from "../Globals"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 
 let OnePresentComponent = () =>{
 
     let [present, setPresent] = useState({})
     let [message, setMessage] = useState("")
+    let navigate = useNavigate();
     let {presentId} = useParams();
 
 
@@ -16,6 +17,11 @@ let OnePresentComponent = () =>{
 
     let getPresents = async() => {
         let response = await fetch(backendURL+"/presents/"+presentId+"?apiKey="+localStorage.getItem("apiKey"))
+
+        if(response.status==401){
+            navigate("/login")
+            return
+        }
 
         if(response.ok){
             let jsonData = await response.json()

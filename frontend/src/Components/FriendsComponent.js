@@ -3,7 +3,9 @@ import { backendURL } from "../Globals"
 import {Link, useNavigate} from 'react-router-dom'
 
 
-let FriendsComponent = () =>{
+let FriendsComponent = (props) =>{
+    let {createNotification}=props;
+
     let [friends, setFriends] = useState([])
     let [message, setMessage] = useState("")
     let navigate = useNavigate()
@@ -14,6 +16,11 @@ let FriendsComponent = () =>{
 
     let getFriends = async() => {
         let response = await fetch(backendURL+"/friends?apiKey="+localStorage.getItem("apiKey"))
+
+        if(response.status==401){
+            navigate("/login")
+            return
+        }
 
         if(response.ok){
             let jsonData = await response.json()
@@ -29,12 +36,18 @@ let FriendsComponent = () =>{
         let response = await fetch(backendURL+"/friends/"+emailFriend+"?apiKey="+localStorage.getItem("apiKey"),{
             method:"DELETE"
         })
+
+        if(response.status==401){
+            navigate("/login")
+            return
+        }
+
         if(response.ok){
             let updatedFriends=friends.filter(friend => friend.emailFriend !== emailFriend)
             setFriends(updatedFriends)
 
             let jsonData = await response.json();
-            setMessage(jsonData.modifiyed)
+            createNotification("Friend deleted")
 
         } else{
             let jsonData = await response.json();

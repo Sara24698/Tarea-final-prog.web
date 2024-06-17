@@ -3,7 +3,8 @@ import { backendURL } from "../Globals"
 import { Link, useNavigate } from "react-router-dom"
 
 
-let PresentsComponent = () =>{
+let PresentsComponent = (props) =>{
+    let {createNotification}=props;
 
     let [presents, setPresents] = useState([])
     let [message, setMessage] = useState("")
@@ -15,6 +16,11 @@ let PresentsComponent = () =>{
 
     let getPresents = async() => {
         let response = await fetch(backendURL+"/presents?apiKey="+localStorage.getItem("apiKey"))
+
+        if(response.status==401){
+            navigate("/login")
+            return
+        }
 
         if(response.ok){
             let jsonData = await response.json()
@@ -29,12 +35,19 @@ let PresentsComponent = () =>{
         let response = await fetch(backendURL+"/presents/"+id+"?apiKey="+localStorage.getItem("apiKey"),{
             method:"DELETE"
         })
+
+        if(response.status==401){
+            navigate("/login")
+            return
+        }
+
+
         if(response.ok){
             let updatedPresents=presents.filter(present => present.id !== id)
             setPresents(updatedPresents)
 
             let jsonData = await response.json();
-            setMessage(jsonData.modifiyed)
+            createNotification("Present deleted")
 
         } else{
             let jsonData = await response.json();
