@@ -30,6 +30,10 @@ routerPresents.post("/", async (req,res)=>{
         return res.status(400).json({error: "no price param"})
     }
 
+    if ( price <=0 ){
+        return res.status(400).json({error: "Invalid price"})
+    }
+
     database.connect();
     let ChosenBy = null;
     
@@ -143,7 +147,7 @@ routerPresents.get('/:id', async (req, res) => {
         return res.status(400).json({error: "No item with this id"})
     } else {
         database.disConnect();
-        return res.status(200).send(present)
+        return res.status(200).send(present[0])
     }
 });
 
@@ -154,6 +158,7 @@ routerPresents.put("/:id", async (req,res)=>{
     let emailUser = req.infoInApiKey.email
 
     let id = req.params.id
+
 
     if ( id == undefined ){
         return res.status(400).json({error: "no id param"})
@@ -219,6 +224,10 @@ routerPresents.put("/:id", async (req,res)=>{
     
         if ( price == undefined ){
             return res.status(400).json({error: "no price param"})
+        }
+
+        if ( price <= 0){
+            return res.status(400).json({error: "Invalid price"})
         }
     
         database.connect();

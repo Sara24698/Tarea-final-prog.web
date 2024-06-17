@@ -113,7 +113,7 @@ routerUsers.post("/login", async (req,res)=>{
 })
 
 //Petición para desconectar
-routerUsers.post("/disconect", async (req,res)=>{
+routerUsers.post("/disconnect", async (req,res)=>{
     const index = activeApiKeys.indexOf(req.apiKey);
     if (index > -1) { 
         activeApiKeys.splice(index, 1); 
