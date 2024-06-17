@@ -20,19 +20,28 @@ app.use(["/users/disconnect","/presents", "/friends"] ,(req,res,next)=>{
 	console.log("middleware execution")
 
 	let apiKey = req.query.apiKey
-	if ( apiKey == undefined ){
-		res.status(401).json({ error: "no apiKey" });
-	return 
-	}
-	let infoInApiKey = jwt.verify(apiKey, "secret");
-	if ( infoInApiKey == undefined || activeApiKeys.indexOf(apiKey) == -1){
-		res.status(401).json({ error: "invalid apiKey" });
-		return 	
-	}
 
-	req.infoInApiKey = infoInApiKey;
-	req.apiKey = apiKey;
-	next()
+	if ( apiKey == "null" ){
+		res.status(401).json({ error: "no apiKey" });
+		return 
+
+	} else{
+		let infoInApiKey = jwt.verify(apiKey, "secret");
+
+		if ( infoInApiKey == undefined || activeApiKeys.indexOf(apiKey) == -1){
+			res.status(401).json({ error: "invalid apiKey" });
+			return 	
+		}
+
+		req.infoInApiKey = infoInApiKey;
+		req.apiKey = apiKey;
+		next()
+
+	}
+	
+	
+
+	
 	
 	
 
