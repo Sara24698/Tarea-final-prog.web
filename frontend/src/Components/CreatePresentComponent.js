@@ -48,7 +48,7 @@ let CreatePresentsComponent = (props) => {
             updatedErrors.url = "No URL introduced"
         }
 
-        if(price=== "" || price<=0){
+        if(price=== "" || (price !== null && price<= 0)){
             updatedErrors.price = "No valid price introduced"
         }
 

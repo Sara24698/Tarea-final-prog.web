@@ -27,7 +27,7 @@ let CreateUserComponent = (props) => {
             updatedErrors.name = "No name introduced"
         }
 
-        if(email === "" || code_email.test(email) === false){
+        if(email === "" || (email !== null && code_email.test(email) === false)){
             updatedErrors.email = "Incorrect email format"
         }
 

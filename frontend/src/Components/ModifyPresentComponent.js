@@ -28,7 +28,7 @@ let ModifyPresentComponent = (props) => {
     let checkLogin = async() => {
         let response = await fetch(backendURL+"/presents?apiKey="+localStorage.getItem("apiKey"))
 
-        if(response.status==401){
+        if(response.status===401){
             navigate("/login")
             return
         }
@@ -50,7 +50,7 @@ let ModifyPresentComponent = (props) => {
             updatedErrors.url = "No URL introduced"
         }
 
-        if(price=== "" || price<= 0){
+        if(price=== "" || (price !== null && price<= 0)){
             updatedErrors.price = "No valid price introduced"
         }
 
@@ -90,7 +90,6 @@ let ModifyPresentComponent = (props) => {
         })
 
         if(response.ok){
-            let jsonData = await response.json();
             createNotification("Present modifyed")
             navigate("/presents")
             

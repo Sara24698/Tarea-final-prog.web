@@ -7,12 +7,31 @@ let FriendsComponent = (props) =>{
     let {createNotification}=props;
 
     let [friends, setFriends] = useState([])
+    let [email, setEmail] = useState(null)
     let [message, setMessage] = useState("")
+    let [error, setError] = useState({})
     let navigate = useNavigate()
+    let code_email = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
 
     useEffect(() =>{
         getFriends();
     }, [])
+
+    useEffect(() =>{
+        checkErrors();
+    }, [email])
+
+
+    let checkErrors = () =>{
+        let updatedErrors = {}
+
+        if(email === "" || (email !== null && code_email.test(email) === false)){
+            updatedErrors.email = "No email or incorrect email format"
+        }
+
+        setError(updatedErrors)
+
+    }
 
     let getFriends = async() => {
         let response = await fetch(backendURL+"/friends?apiKey="+localStorage.getItem("apiKey"))
@@ -46,7 +65,7 @@ let FriendsComponent = (props) =>{
             let updatedFriends=friends.filter(friend => friend.emailFriend !== emailFriend)
             setFriends(updatedFriends)
 
-            let jsonData = await response.json();
+
             createNotification("Friend deleted")
 
         } else{
@@ -64,6 +83,10 @@ let FriendsComponent = (props) =>{
         navigate("/friendpresents/"+emailFriend)
     }
 
+    let changeEmail =(e) =>{
+        setEmail(e.currentTarget.value)
+    }
+
 
     return(
         <div>
@@ -71,6 +94,13 @@ let FriendsComponent = (props) =>{
             {message !== "" && <h3 className="errorMessage">{message}</h3>}
 
             <div class="item-class">
+                <div className="searcher">
+                    <input type="email" placeholder="Friend email" onChange={changeEmail}/>
+                    {error.email && <p className="errorform">{error.email}</p>}
+                    <button onClick={()=> {seePresents(email)}}>See friend wishlist</button>
+
+                </div>
+
                 {friends.map(friends =>
                     (
                         <div className ="items">

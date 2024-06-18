@@ -11,6 +11,7 @@ import { backendURL } from './Globals.js';
 import ModifyPresentComponent from './Components/ModifyPresentComponent.js';
 import FriendPresentsComponent from './Components/FriendPresentsComponent.js';
 
+import './App.css';
 
 
 
@@ -64,7 +65,7 @@ let App = () => {
                 </ul>
             </nav>
 
-        {notification != "" && (
+        {notification !== "" && (
             <div className='notification'>
                 {notification}
                 <span className='close-btn' onClick={()=>{setNotification("")}}>X</span>

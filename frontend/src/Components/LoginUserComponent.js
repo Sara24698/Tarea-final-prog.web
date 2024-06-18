@@ -22,7 +22,7 @@ let LoginUserComponent = (props) => {
     let checkErrors = () =>{
         let updatedErrors = {}
 
-        if(email === "" || code_email.test(email) === false){
+        if(email === "" || (email !== null && code_email.test(email) === false)){
             updatedErrors.email = "No email or incorrect email format"
         }
 
