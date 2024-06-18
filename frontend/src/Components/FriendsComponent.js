@@ -89,17 +89,16 @@ let FriendsComponent = (props) =>{
 
 
     return(
-        <div>
+        <div className="main-container">
             <h2>Friends</h2>
             {message !== "" && <h3 className="errorMessage">{message}</h3>}
 
-            <div class="item-class">
-                <div className="searcher">
+            <div className="center-box">
+                <div className="form-group">
                     <input type="email" placeholder="Friend email" onChange={changeEmail}/>
-                    {error.email && <p className="errorform">{error.email}</p>}
-                    <button onClick={()=> {seePresents(email)}}>See friend wishlist</button>
-
                 </div>
+                {error.email && <p className="errorform">{error.email}</p>}
+                <button onClick={()=> {seePresents(email)}}>See friend wishlist</button>
 
                 {friends.map(friends =>
                     (

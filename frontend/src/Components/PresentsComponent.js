@@ -68,21 +68,19 @@ let PresentsComponent = (props) =>{
         <div>
             <h2>Presents</h2>
             {message !== "" && <h3 className="errorMessage">{message}</h3>}
-
-            <div class="item-class">
                 {presents.map(presents =>
                     (   
                         
-                    <div className ="presents">
+                    <div className="item-class">
                         <Link to={"/present/"+presents.id}>
-                        <h3>{presents.name}</h3>
+                        <h3 className="presents">{presents.name}</h3>
                         </Link>
-                            <p>{presents.description}</p>
-                            <p>{presents.URL}</p>
-                            <p>{presents.price}</p>
-                            <p>{presents.ChosenBy}</p>
-                            <button onClick={()=> {deletePresent(presents.id)}}>Delete</button>
-                            <button onClick={()=>{ModifyPresent(presents.id)}}>Modify present</button>
+                            <p className="detalles">Description: {presents.description}</p>
+                            <p className="detalles">URL: {presents.URL}</p>
+                            <p className="detalles">Price: {presents.price}</p>
+                            <p className="detalles">Chosen by: {presents.ChosenBy}</p>
+                            <button className="butpresents" onClick={()=> {deletePresent(presents.id)}}>Delete</button>
+                            <button className="butpresents" onClick={()=>{ModifyPresent(presents.id)}}>Modify present</button>
                     </div>
                         
                         
@@ -90,9 +88,11 @@ let PresentsComponent = (props) =>{
                     )
                 )}
 
-            <button onClick={()=> {addPresent()}}>Add present</button>
-
+            <div className="item-class">
+                <button className="butpresents" onClick={()=> {addPresent()}}>Add present</button>  
             </div>
+
+            
         </div>
     )
 }

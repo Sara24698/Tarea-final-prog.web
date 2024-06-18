@@ -69,7 +69,7 @@ let LoginUserComponent = (props) => {
     }
 
     return(
-        <div>
+        <div className="main-container">
             <h2>Login user</h2>
             {message !== "" && <h3 className="errorMessage">{message}</h3>}
             <div className="center-box">
@@ -78,7 +78,7 @@ let LoginUserComponent = (props) => {
                 </div>
                 {error.email && <p className="errorform">{error.email}</p>}
 
-                <div>
+                <div className="form-group">
                     <input type="password" placeholder="Your password" onChange={changePassword}/>
                 </div>
                 {error.password && <p className="errorform">{error.password}</p>}

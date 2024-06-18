@@ -96,7 +96,7 @@ let CreatePresentsComponent = (props) => {
     }
 
     return(
-        <div>
+        <div className="main-container">
             <h2>Add present</h2>
             <h3>{message}</h3>
             <div className="center-box">
@@ -109,11 +109,11 @@ let CreatePresentsComponent = (props) => {
                     <input type="text" placeholder="Description" onChange={changeDescription}/>
                 </div>
                 {error.description && <p className="errorform">{error.description}</p>}
-                <div>
+                <div className="form-group">
                     <input type="web" placeholder="URL" onChange={changeURL}/>
                 </div>
                 {error.url && <p className="errorform">{error.url}</p>}
-                <div>
+                <div className="form-group">
                     <input type="number" placeholder="Price" onChange={changePrice}/>
                 </div>
                 {error.price && <p className="errorform">{error.price}</p>}

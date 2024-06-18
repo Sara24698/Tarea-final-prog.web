@@ -33,17 +33,17 @@ let OnePresentComponent = () =>{
 
 
     return(
-        <div>
+        <div className="main-container">
             <h2>Present</h2>
             {message !== "" && <h3 className="errorMessage">{message}</h3>}
 
-            <div class="item-class">
-                <div className ="presents">
+            <div>
+                <div>
                     <h3>{present.name}</h3>
-                    <p>{present.description}</p>
-                    <p>{present.URL}</p>
-                    <p>{present.price}</p>
-                    <p>{present.ChosenBy}</p>
+                    <p className="detalles">Description: {present.description}</p>
+                    <p className="detalles">URL: {present.URL}</p>
+                    <p className="detalles">Price: {present.price}</p>
+                    <p className="detalles">Chosen by: {present.ChosenBy}</p>
                 </div>
 
             </div>

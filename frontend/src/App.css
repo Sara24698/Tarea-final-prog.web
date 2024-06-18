@@ -1,36 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+IS:wght@100..400&display=swap');
+
+/*General*/
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f2f2f2;
-  }
+    background-image: url(https://img.freepik.com/free-vector/flat-design-candy-pastel-color-pattern_23-2150607072.jpg?w=740&t=st=1718730912~exp=1718731512~hmac=d243426ba8d25a7bf7302d732d07102bc02b487ac88eaa9ceddd8d08a2f2fa02);
+    background-size: cover;
+}
+
   
   .main-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
+    max-width: 600px;
+    margin: 10px auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
-  h1, h2, h3 {
+  h1, h2 {
     text-align: center;
+    font-family: "Playwrite IS", cursive;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  .presents:hover {
+    color: red;
+  }
+
+
+/*Index*/
+  .parrafo {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 1.5rem;
   }
   
   
-  /** Nuevo navbar **/
-  
+
+ /*Barra de navegación*/ 
   .navbar {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    height: 60px;
     overflow: hidden;
     background-color: #000000;
   }
   
+  .Title {
+    float: left;
+    padding-top: 0px;
+    color: white;
+    text-align: center;
+    margin-left: 680px;
+    margin-top: 5px;
+    font-size: large;
+    font-family: "Playwrite IS", cursive;
+    
+  }
+
   .navbar li {
     float: left;
+    padding-top: 7px;
+
   }
   
   .navbar li a {
@@ -42,9 +83,10 @@ body {
   }
   
   .navbar li a:hover {
-    background-color: #3500f7;
+    background-color: blueviolet;
   }
   
+  /*Contenido*/
   .center-box {
     max-width: 400px;
     margin: 20px auto;
@@ -57,6 +99,16 @@ body {
     margin-bottom: 15px;
     display:flex;
   }
+
+  .item-class {
+    max-width: 600px;
+    margin: 10px auto;
+    padding-top: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding-bottom: 0px;
+  }
   
   input {
     padding: 10px;
@@ -65,7 +117,22 @@ body {
   }
   
   button {
-    padding: 10px 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 500px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width:100%;
+  }
+
+  .butpresents {
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 500px;
+    margin-left: 50px;
     background-color: #4CAF50;
     color: #fff;
     border: none;
@@ -77,21 +144,30 @@ body {
   button:hover {
     background-color: #45a049;
   }
+
+  .detalles{
+    padding-left: 220px;
+    
+  }
+
+
+
   
   .errorMessage {
     text-align: center;
     color: red;
   }
   
-  .errorForm{
+  .errorform{
     color:red;
+    font-weight: bold;
   }
   
   .notification {
     position: relative;
-    background-color: white;
-    border: 1px solid grey;
-    color: grey;
+    background-color: rgb(189, 236, 182);
+    border: 1px solid green;
+    color: green;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 4px;
@@ -102,6 +178,6 @@ body {
     top: 5px;
     right: 5px;
     font-size: 14px;
-    color: #999;
+    color: red;
     cursor: pointer;
   }

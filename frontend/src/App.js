@@ -12,6 +12,7 @@ import ModifyPresentComponent from './Components/ModifyPresentComponent.js';
 import FriendPresentsComponent from './Components/FriendPresentsComponent.js';
 
 import './App.css';
+import IndexComponent from './Components/IndexComponent.js';
 
 
 
@@ -53,7 +54,7 @@ let App = () => {
     }
 
     return(
-        <div className="App">
+        <div>
             <nav>
                 <ul className='navbar'>
                     <li><Link to="/">Index</Link></li>
@@ -62,6 +63,7 @@ let App = () => {
                     {login && <li><Link to="/presents">My Presents</Link></li>}
                     {login &&<li><Link to="/friends">Friends</Link></li>}
                     {login &&<li><Link to="/" onClick={disconnect}>Disconnect</Link></li>}
+                    <li className='Title'>Gift Manager</li>
                 </ul>
             </nav>
 
@@ -83,7 +85,7 @@ let App = () => {
                 }></Route>
 
                 <Route path='/' element={
-                    <p>Inicio</p>
+                    <IndexComponent/>
                 }></Route>
 
                 <Route path='/presents' element={

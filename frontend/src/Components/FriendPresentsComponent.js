@@ -45,7 +45,7 @@ let FriendPresentsComponent = (props) =>{
 
         if(response.ok){
             createNotification("Present reserved")
-            navigate("/friends/"+email)
+            navigate("/friends/")
 
 
         } else{
@@ -59,20 +59,20 @@ let FriendPresentsComponent = (props) =>{
 
 
     return(
-        <div>
+        <div className="main-container">
             <h2>Friend presents</h2>
             {message !== "" && <h3 className="errorMessage">{message}</h3>}
 
             <div class="item-class">
                 {presents.map(presents =>
                     (   
-                        <div className ="presents">
+                        <div>
                             <h3>{presents.name}</h3>
-                                <p>{presents.description}</p>
-                                <p>{presents.URL}</p>
-                                <p>{presents.price}</p>
-                                <p>{presents.ChosenBy}</p>
-                                <button onClick={()=> {buyPresent(presents.id)}}>Buy</button>
+                                <p className="detalles">Description: {presents.description}</p>
+                                <p className="detalles">URL: {presents.URL}</p>
+                                <p className="detalles">Price: {presents.price}</p>
+                                <p className="detalles">Chosen by: {presents.ChosenBy}</p>
+                                <button className="butpresents" onClick={()=> {buyPresent(presents.id)}}>Buy</button>
                         </div>
                         
                         

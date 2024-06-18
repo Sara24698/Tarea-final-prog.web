@@ -75,7 +75,7 @@ let CreateUserComponent = (props) => {
     }
 
     return(
-        <div>
+        <div className="main-container">
             <h2>Register user</h2>
             <h3>{message}</h3>
             <div className="center-box">
@@ -88,7 +88,7 @@ let CreateUserComponent = (props) => {
                     <input type="text" placeholder="Your email" onChange={changeEmail}/>
                 </div>
                 {error.email && <p className="errorform">{error.email}</p>}
-                <div>
+                <div className="form-group">
                     <input type="password" placeholder="Your password" onChange={changePassword}/>
                 </div>
                 {error.password && <p className="errorform">{error.password}</p>}
