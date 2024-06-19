@@ -21,7 +21,7 @@ app.use(["/users/disconnect","/presents", "/friends"] ,(req,res,next)=>{
 
 	let apiKey = req.query.apiKey
 
-	if ( apiKey == "null" ){
+	if ( apiKey == undefined ||apiKey == "null" ){
 		res.status(401).json({ error: "no apiKey" });
 		return 
 
