@@ -101,7 +101,7 @@ let CreatePresentsComponent = (props) => {
         <Row align="middle" justify="center" style={{minHeight: "70vh"}}>
             <Col >
             {message !="" && <Alert type="error" message={message}/>}
-                <Card title="Modify present" style={{minWidth: "300px", maxWidth:"500px", textAlign:"center"}}>
+                <Card title="Create present" style={{minWidth: "300px", maxWidth:"500px", textAlign:"center"}}>
                     <Input size="large" style={{marginBottom: "10px"}} type="text" placeholder="Name" onChange={changeName}/>
                     {error.name && <Text type="danger">{error.name}</Text>}
                     <Input size="large" style={{marginBottom: "10px"}} type="text" placeholder="Description" onChange={changeDescription}/>

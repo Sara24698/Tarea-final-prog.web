@@ -107,16 +107,18 @@ let PresentsComponent = (props) =>{
         {
             title: "",
             dataIndex: "id",
-            render:(id) => <Button type="primary"   onClick={()=> {deletePresent(id)}}>Delete</Button> 
+            render:(id) => <Button type="default"   onClick={()=>{ModifyPresent(id)}}>Modify present</Button> 
 
         },
 
         {
             title: "",
             dataIndex: "id",
-            render:(id) => <Button type="primary"   onClick={()=>{ModifyPresent(id)}}>Modify present</Button> 
+            render:(id) => <Button type="default"  danger  onClick={()=> {deletePresent(id)}}>Delete</Button> 
 
-        }
+        },
+
+        
     ]
 
 
@@ -125,6 +127,7 @@ let PresentsComponent = (props) =>{
             <h2>Presents</h2>
             {message !="" && <Alert type="error" message={message}/>}
             <Table columns={columns} dataSource={presents}/>
+            <Button type="primary"  onClick={addPresent}>Add present</Button> 
 
             
         </>

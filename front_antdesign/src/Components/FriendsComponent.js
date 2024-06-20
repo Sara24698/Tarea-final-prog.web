@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react"
 import { backendURL } from "../Globals"
 import {Link, useNavigate} from 'react-router-dom'
-import { Button, Card, Col, Input, Row, List, Typography, Alert } from "antd";
+import { SearchOutlined } from '@ant-design/icons';
+
+import { Button, Card, Col, Input, Row, List, Typography, Alert,} from "antd";
 let {Text} = Typography;
+
+
+
 
 
 let FriendsComponent = (props) =>{
@@ -90,13 +95,18 @@ let FriendsComponent = (props) =>{
     }
 
 
+
+
     return(
         <>
             <h2>Friends</h2>
             {message !="" && <Alert type="error" message={message}/>}
             <Input size="large" style={{marginBottom: "10px"}} type="text" placeholder="Friend email" onChange={changeEmail}/>
             {error.email && <Text type="danger">{error.email}</Text>}
-            <Button type="primary"   onClick={()=> {seePresents(email)}}>See friend wishlist</Button> 
+            <Button type="primary"  icon={<SearchOutlined />} style={{marginBottom:"50px"}} onClick={()=> {seePresents(email)}}>Search friend wishlist</Button> 
+
+
+            
             
             <List grid={{
                 gutter:16,
@@ -110,9 +120,9 @@ let FriendsComponent = (props) =>{
             
              dataSource={friends} renderItem={(friend)=>(
                 <List.Item>
-                    <Card hoverable title={friend.emailFriend}>
-                        <Button type="primary"  onClick={()=> {deleteFriend(friend.emailFriend)}} >Delete</Button> 
-                        <Button type="primary" onClick={()=> {seePresents(friend.emailFriend)}}>See wishlist</Button>  
+                    <Card hoverable title={friend.emailFriend} style={{textAlign:"center"}}>  
+                        <Button type="primary" style={{marginBottom:"15px", marginLeft:"20px"}} onClick={()=> {seePresents(friend.emailFriend)}}>See wishlist</Button> 
+                        <Button type="default" danger style={{marginLeft:"30px"}} onClick={()=> {deleteFriend(friend.emailFriend)}} >Delete</Button> 
                     </Card>
                 </List.Item>
 
@@ -122,7 +132,7 @@ let FriendsComponent = (props) =>{
             </List>
                 
 
-            <Button type="primary" onClick={()=> {addFriend()}}>Add friend</Button>  
+            <Button type="primary" style={{marginLeft:"300px"}} onClick={()=> {addFriend()}}>Add friend</Button>  
 
             
         </>

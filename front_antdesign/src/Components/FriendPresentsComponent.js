@@ -77,7 +77,7 @@ let FriendPresentsComponent = (props) =>{
             
              dataSource={presents} renderItem={(present)=>(
                 <List.Item>
-                    <Card title={present.name}>
+                    <Card title={present.name} style={{textAlign:"center"}}>
                         <p>Description: {present.description}</p>
                         <p>URL: {present.URL}</p>
                         <p>Price: {present.price}</p>
